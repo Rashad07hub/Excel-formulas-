@@ -357,7 +357,7 @@ Or:
       COUNTIF(orders,">1")/COUNTA(u)
       )
 99. Calculate the median order value.
-    =MEDIAN(SalesData[Sales])
+     =MEDIAN(SalesData[Sales])
 100. Identify sales outliers using the IQR method.
      Q1: =QUARTILE.INC(SalesData[Sales],1)
      Q3: =QUARTILE.INC(SalesData[Sales],3)
@@ -374,22 +374,24 @@ Or:
       "Normal"
       )
 
-1. Age in completed years
-Suppose the date of birth is in A2:
-For example:
-Date of Birth Formula Age
-15-Mar-1995 
+101. Age in completed years
+     Suppose the date of birth is in A2:
+     For example:
+     Date of Birth Formula Age
+     15-Mar-1995 
        =DATEDIF(A2,TODAY(),"Y") 31
-This returns the person's completed age in years.
-2. Age in years + months + days
+     This returns the person's completed age in years.
+102. Age in years + months + days
        =DATEDIF(A2,TODAY(),"Y")&" Years, "&DATEDIF(A2,TODAY(),"YM")&" Months, "&DATEDIF(A2,TODAY
-If you want something like 31 years, 6 months, 20 days:
-3. Age in total months
+     If you want something like 31 years, 6 months, 20 days:
+103. Age in total months
        =DATEDIF(A2,TODAY(),"M")
-4. Age in total days
-      =DATEDIF(A2,TODAY(),"D")
-5. If you want age as of a specific date
-      =DATEDIF(A2,DATE(2026,12,31),"Y")
-This is better than simply using:
-     =DATEDIF([@Date_of_Birth],TODAY(),"Y")
-     =YEAR(TODAY())-YEAR(A2)
+104. Age in total days
+       =DATEDIF(A2,TODAY(),"D")
+105. If you want age as of a specific date
+       =DATEDIF(A2,DATE(2026,12,31),"Y")
+     This is better than simply using:
+       =DATEDIF([@Date_of_Birth],TODAY(),"Y")
+       =YEAR(TODAY())-YEAR(A2)
+106. Leveling the column values based on the equality the values between columns  
+       =IFs(AND(B2=C2,C2=D2),"High",OR(B2=C2,B2=D2,C2=D2),"Medium",TRUE,"Low")
