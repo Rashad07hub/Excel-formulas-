@@ -1,3 +1,5 @@
+Professional Data Analyst Skills Covered These 100 questions progressively cover the Excel skills you would actually use in data analysis work:
+
 Part 1 — Basic Data Analysis
 
 1. Calculate total sales.
@@ -122,405 +124,272 @@ Part 4 — Date Analysis
 Part 5 — Profitability Analysis
 
 41. Calculate profit margin for each order.
-=IFERROR([@Profit]/[@Sales],0)
+    =IFERROR([@Profit]/[@Sales],0)
 42. Calculate overall profit margin.
-=SUM(SalesData[Profit])/SUM(SalesData[Sales])
+    =SUM(SalesData[Profit])/SUM(SalesData[Sales])
 43. Calculate sales after discount.
-=[@Quantity]*[@Unit_Price]*(1-[@Discount])
+    =[@Quantity]*[@Unit_Price]*(1-[@Discount])
 44. Calculate gross profit.
-=[@Sales]-[@Cost]
+    =[@Sales]-[@Cost]
 45. Identify profitable vs. loss-making orders.
+    =IF([@Profit]>0,"Profitable","Loss")
 46. Identify high-profit orders.
-
-
-
-
-
-=IF([@Profit]>0,"Profitable","Loss")
-excel
-excel
-excel
-excel
-excel
-excel
+    =IF([@Profit]>=2000,"High Profit","Normal")
 47. Calculate profit per unit.
+    =IFERROR([@Profit]/[@Quantity],0)
 48. Calculate average order value.
+    =AVERAGE(SalesData[Sales])
 49. Calculate revenue per customer.
+    =SUM(SalesData[Sales])/COUNTA(UNIQUE(SalesData[Customer_ID]))
 50. Calculate profit as a percentage of cost.
+    =SUM(SalesData[Profit])/SUM(SalesData[Cost])
+
 Part 6 — IF / IFS / Logical Analysis
+
 51. Categorize customers by age.
+   =IFS(
+    [@Age]<25,"Young",
+    [@Age]<40,"Adult",
+    [@Age]<60,"Middle Age",
+    TRUE,"Senior"
+    )
 52. Categorize sales.
-=IF([@Profit]>=2000,"High Profit","Normal")
-=IFERROR([@Profit]/[@Quantity],0)
-=AVERAGE(SalesData[Sales])
-=SUM(SalesData[Sales])/COUNTA(UNIQUE(SalesData[Customer_ID]))
-=SUM(SalesData[Profit])/SUM(SalesData[Cost])
-=IFS(
-[@Age]<25,"Young",
-[@Age]<40,"Adult",
-[@Age]<60,"Middle Age",
-TRUE,"Senior"
-)
-excel
-excel
-excel
-excel
-excel
-excel
+    =IFS(
+     [@Sales]<1000,"Low",
+     [@Sales]<5000,"Medium",
+     TRUE,"High"
+     )
 53. Categorize profit margin.
+    =IFS(
+     [@Profit]/[@Sales]<0.10,"Low Margin",
+     [@Profit]/[@Sales]<0.25,"Medium Margin",
+     TRUE,"High Margin"
+     )
 54. Identify delayed deliveries.
+    =IF(
+     [@Delivery_Date]-[@Order_Date]>7,
+     "Delayed",
+     "On Time"
+     )
 55. Identify high-value customers.
+    =IF([@Sales]>=10000,"High Value","Regular")
 56. Identify discounted orders.
+    =IF([@Discount]>0,"Discounted","No Discount")
 57. Identify orders requiring attention.
-=IFS(
-[@Sales]<1000,"Low",
-[@Sales]<5000,"Medium",
-TRUE,"High"
-)
-=IFS(
-[@Profit]/[@Sales]<0.10,"Low Margin",
-[@Profit]/[@Sales]<0.25,"Medium Margin",
-TRUE,"High Margin"
-)
-=IF(
-[@Delivery_Date]-[@Order_Date]>7,
-"Delayed",
-"On Time"
-)
-=IF([@Sales]>=10000,"High Value","Regular")
-=IF([@Discount]>0,"Discounted","No Discount")
-=IF(
-OR([@Profit]<0,[@Order_Status]="Cancelled"),
-excel
-excel
-excel
-excel
-excel
-excel
+    =IF(
+    OR([@Profit]<0,[@Order_Status]="Cancelled"),
+    "Attention Required",
+    "Normal"
+    )
 58. Identify successful orders.
+    =IF(
+     AND([@Profit]>0,[@Order_Status]="Completed"),
+     "Successful",
+     "Other"
+     )
 59. Identify customers with high ratings.
+    =IF([@Customer_Rating]>=4,"Satisfied","Needs Attention")
+
 60. Create a sales performance category.
+   =IFS(
+    AND([@Sales]>=10000,[@Profit]>2000),"Excellent",
+    [@Sales]>=5000,"Good",
+    TRUE,"Low"
+    )
+
 Part 7 — Lookup Functions
-Assume you create a separate table called ProductData :
-Product_ID Product_Name Category Unit_Cost
+   
+    =XLOOKUP([@Product_ID],ProductData[Product_ID],ProductData[Product_Name])
+
 61. Find Product Name from Product_ID using XLOOKUP.
+   =XLOOKUP(
+    [@Product_ID],
+    ProductData[Product_ID],
+    ProductData[Category]
+    )
 62. Find Category.
-"Attention Required",
-"Normal"
-)
-=IF(
-AND([@Profit]>0,[@Order_Status]="Completed"),
-"Successful",
-"Other"
-)
-=IF([@Customer_Rating]>=4,"Satisfied","Needs Attention")
-=IFS(
-AND([@Sales]>=10000,[@Profit]>2000),"Excellent",
-[@Sales]>=5000,"Good",
-TRUE,"Low"
-)
-=XLOOKUP([@Product_ID],ProductData[Product_ID],ProductData[Product_Name])
-excel
-excel
-excel
-excel
+    =XLOOKUP(
+     [@Product_ID],
+     ProductData[Product_ID],
+     ProductData[Unit_Cost]
+     )
 63. Find Unit Cost.
+    =XLOOKUP(
+     [@Product_ID],
+     ProductData[Product_ID],
+     ProductData[Product_Name],
+     "Not Found"
+     )
 64. Use XLOOKUP with a default message.
+
 65. Use VLOOKUP to find Product Name.
+    =VLOOKUP(
+     [@Product_ID],
+     ProductData[[Product_ID]:[Product_Name]],2,
+     FALSE
+     )
 66. Use INDEX/MATCH to find Category.
-=XLOOKUP(
-[@Product_ID],
-ProductData[Product_ID],
-ProductData[Category]
-)
-=XLOOKUP(
-[@Product_ID],
-ProductData[Product_ID],
-ProductData[Unit_Cost]
-)
-=XLOOKUP(
-[@Product_ID],
-ProductData[Product_ID],
-ProductData[Product_Name],
-"Not Found"
-)
-=VLOOKUP(
-[@Product_ID],
-ProductData[[Product_ID]:[Product_Name]],
-2,
-FALSE
-)
-=INDEX(
-ProductData[Category],
-excel
-excel
-excel
-excel
-excel
+    =INDEX(
+     ProductData[Category],
+     MATCH([@Product_ID],ProductData[Product_ID],0)
+
 67. Find the salesperson for a particular Order_ID.
+    =XLOOKUP(
+     A2,
+     SalesData[Order_ID],
+     SalesData[Salesperson]
+     )
 68. Find customer name from Customer_ID.
+    =XLOOKUP(
+     C2,
+     SalesData[Customer_ID],
+     SalesData[Customer_Name]
+     )
 69. Find sales for a specific Order_ID.
+    =XLOOKUP(
+     A2,
+     SalesData[Order_ID],
+     SalesData[Sales]
+     )
 70. Find profit for a specific Order_ID.
+    =XLOOKUP(
+     A2,
+     SalesData[Order_ID],
+     SalesData[Profit]
+     )
+
 Part 8 — Text Analysis
+
 71. Extract the first name from Customer_Name.
-MATCH([@Product_ID],ProductData[Product_ID],0)
-=XLOOKUP(
-A2,
-SalesData[Order_ID],
-SalesData[Salesperson]
-)
-=XLOOKUP(
-C2,
-SalesData[Customer_ID],
-SalesData[Customer_Name]
-)
-=XLOOKUP(
-A2,
-SalesData[Order_ID],
-SalesData[Sales]
-)
-=XLOOKUP(
-A2,
-SalesData[Order_ID],
-SalesData[Profit]
-)
-excel
-excel
-excel
-excel
+    =TEXTBEFORE([@Customer_Name]," ")
 72. Extract the last name.
+    =TEXTAFTER([@Customer_Name]," ")
 73. Convert customer names to uppercase.
+    =UPPER([@Customer_Name])
 74. Convert customer names to lowercase.
+    =LOWER([@Customer_Name])
 75. Proper-case customer names.
+    =PROPER([@Customer_Name])
 76. Count characters in customer names.
+    =LEN([@Customer_Name])
 77. Remove unnecessary spaces.
+    =TRIM([@Customer_Name])
 78. Check whether product name contains "Laptop".
-=TEXTBEFORE([@Customer_Name]," ")
-=TEXTAFTER([@Customer_Name]," ")
-=UPPER([@Customer_Name])
-=LOWER([@Customer_Name])
-=PROPER([@Customer_Name])
-=LEN([@Customer_Name])
-=TRIM([@Customer_Name])
-excel
-excel
-excel
-excel
-excel
-excel
-excel
-excel
+    =IF(ISNUMBER(SEARCH("Laptop",[@Product_Name])),"Laptop","Other")
 79. Combine Customer_Name and Country.
+    =[@Customer_Name]&" - "&[@Country]
 80. Create a customer-region identifier.
+    =[@Customer_ID]&"-"&[@Region]
+
 Part 9 — Ranking and Top-N Analysis
+
 81. Rank orders by sales.
+    =RANK.EQ([@Sales],SalesData[Sales],0)
 82. Rank orders by profit.
+    =RANK.EQ([@Profit],SalesData[Profit],0)
 83. Find the highest sales value.
+    =LARGE(SalesData[Sales],1)
 84. Find the fifth-highest sales.
+    =LARGE(SalesData[Sales],5)
 85. Find the lowest sales value.
-=IF(ISNUMBER(SEARCH("Laptop",[@Product_Name])),"Laptop","Other")
-=[@Customer_Name]&" - "&[@Country]
-=[@Customer_ID]&"-"&[@Region]
-=RANK.EQ([@Sales],SalesData[Sales],0)
-=RANK.EQ([@Profit],SalesData[Profit],0)
-=LARGE(SalesData[Sales],1)
-=LARGE(SalesData[Sales],5)
-excel
-excel
-excel
-excel
-excel
-excel
+    =SMALL(SalesData[Sales],1)
 86. Find the top 10 sales values.
+    =LARGE(SalesData[Sales],SEQUENCE(10))
 87. Return the top 10 orders.
+    =TAKE(
+     SORT(SalesData,SalesData[Sales],-1),
+     10)
 88. Return the top 10 customers by total sales.
+    =LET(
+     u,UNIQUE(SalesData[Customer_ID]),
+     s,SUMIF(SalesData[Customer_ID],u,SalesData[Sales]),
+     TAKE(SORT(HSTACK(u,s),2,-1),10)
+     )
 89. Return the top 5 products by sales.
+    =LET(
+     u,UNIQUE(SalesData[Product_Name]),
+     s,SUMIF(SalesData[Product_Name],u,SalesData[Sales]),
+     TAKE(SORT(HSTACK(u,s),2,-1),5)
+     )
 90. Return the bottom 5 products by sales.
-=SMALL(SalesData[Sales],1)
-=LARGE(SalesData[Sales],SEQUENCE(10))
-=TAKE(
-SORT(SalesData,SalesData[Sales],-1),
-10
-)
-=LET(
-u,UNIQUE(SalesData[Customer_ID]),
-s,SUMIF(SalesData[Customer_ID],u,SalesData[Sales]),
-TAKE(SORT(HSTACK(u,s),2,-1),10)
-)
-=LET(
-u,UNIQUE(SalesData[Product_Name]),
-s,SUMIF(SalesData[Product_Name],u,SalesData[Sales]),
-TAKE(SORT(HSTACK(u,s),2,-1),5)
-)
-=LET(
-u,UNIQUE(SalesData[Product_Name]),
-s,SUMIF(SalesData[Product_Name],u,SalesData[Sales]),
-excel
-excel
-excel
-excel
-excel
-excel
+    =LET(
+     u,UNIQUE(SalesData[Product_Name]),
+     s,SUMIF(SalesData[Product_Name],u,SalesData[Sales]),
+     TAKE(SORT(HSTACK(u,s),2,1),5)
+     )
+
 Part 10 — Advanced Data Analyst Questions
+
 91. Calculate each order's percentage contribution to total sales.
+    =[@Sales]/SUM(SalesData[Sales])
 92. Calculate each product's contribution to total profit.
+    =SUMIF(
+     SalesData[Product_Name],
+     [@Product_Name],
+     SalesData[Profit]
+     )/SUM(SalesData[Profit])
 93. Calculate cumulative sales.
+    =SUM($Q$2:Q2)
 Assuming data is sorted by date:
+    =SUM($S$2:S2)
 94. Calculate cumulative profit.
+    =SUMIFS(
+     SalesData[Sales],
+     SalesData[Order_Date],">="&DATE(YEAR(B2),1,1),
+     SalesData[Order_Date],"<="&B2
+     )
 95. Calculate Year-to-Date sales.
-TAKE(SORT(HSTACK(u,s),2,1),5)
-)
-=[@Sales]/SUM(SalesData[Sales])
-=SUMIF(
-SalesData[Product_Name],
-[@Product_Name],
-SalesData[Profit]
-)/SUM(SalesData[Profit])
-=SUM($Q$2:Q2)
-=SUM($S$2:S2)
-=SUMIFS(
-SalesData[Sales],
-SalesData[Order_Date],">="&DATE(YEAR(B2),1,1),
-SalesData[Order_Date],"<="&B2
-)
-excel
-excel
-excel
-excel
-excel
+     =SUMIFS(
+      SalesData[Sales],
+      SalesData[Order_Date],">="&EOMONTH(B2,-1)+1,
+      SalesData[Order_Date],"<="&B2
+      )
 96. Calculate Month-to-Date sales.
+     =IFERROR((B2-C2)/C2,0)
 97. Calculate YoY sales growth.
 Assume B2 contains current-year sales and C2 contains previous-year sales.
 Or:
+     =IFERROR(B2/C2-1,0)
 98. Calculate repeat-customer percentage.
+     =LET(
+      u,UNIQUE(SalesData[Customer_ID]),
+      orders,COUNTIF(SalesData[Customer_ID],u),
+      COUNTIF(orders,">1")/COUNTA(u)
+      )
 99. Calculate the median order value.
+    =MEDIAN(SalesData[Sales])
 100. Identify sales outliers using the IQR method.
-Q1:
-=SUMIFS(
-SalesData[Sales],
-SalesData[Order_Date],">="&EOMONTH(B2,-1)+1,
-SalesData[Order_Date],"<="&B2
-)
-=IFERROR((B2-C2)/C2,0)
-=IFERROR(B2/C2-1,0)
-=LET(
-u,UNIQUE(SalesData[Customer_ID]),
-orders,COUNTIF(SalesData[Customer_ID],u),
-COUNTIF(orders,">1")/COUNTA(u)
-)
-=MEDIAN(SalesData[Sales])
-excel
-excel
-excel
-excel
-excel
-excel
-Q3:
-IQR:
-Lower Bound:
-Upper Bound:
-Identify each outlier:
-Professional Data Analyst Skills Covered
-These 100 questions progressively cover the Excel skills you would actually use in dataanalysis
-work:
-=QUARTILE.INC(SalesData[Sales],1)
-=QUARTILE.INC(SalesData[Sales],3)
-=Q3-Q1
-=Q1-1.5*IQR
-=Q3+1.5*IQR
-=IF(
-OR(
-[@Sales]<Lower_Bound,
-[@Sales]>Upper_Bound
-),
-"Outlier",
-"Normal"
-)
-excel
-excel
-excel
-excel
-excel
-Monday
-11:10 AM
-Skill
-Questions
-Basic aggregation
-1–10
-COUNTIF / COUNTIFS
-11–20
-SUMIF / SUMIFS
-21–30
-Date analysis
-31–40
-Profitability
-41–50
-IF / IFS / logical functions
-51–60
-XLOOKUP / VLOOKUP / INDEX-MATCH
-61–70
-Text functions
-71–80
-Ranking / Top-N
-81–90
-Advanced analytics
-91–100
-For professional-level practice, don't just enter the formulas.
-Try to build an Excelworkbook with these sheets:
-1.
-Raw_Data
-— original dataset
-2.
-Cleaned_Data
-— cleaned/validated data
-3.
-Analysis
-— questions 1–100
-4.
-Pivot_Analysis
-— PivotTables
-5.
-Dashboard
-— KPIs, trends, Top 10 products/customers, regional performance,profitability, and slicers
-This gives you a single dataset that can be used to practice
-Excel formulas → datacleaning → analytical calculations → PivotTables → dashboard development
-, whichis much closer to a real Data Analyst workflow than practicing isolated formulas.
-how to calculate age to till date from birthday?
-If you have a
-Date of Birth
-in Excel and want to calculate the person's
-current age as oftoday
-, use
-DATEDIF
-.
+     Q1: =QUARTILE.INC(SalesData[Sales],1)
+     Q3: =QUARTILE.INC(SalesData[Sales],3)
+     IQR: =Q3-Q1
+     Lower Bound: =Q1-1.5*IQR
+     Upper Bound: =Q3+1.5*IQR
+     Identify each outlier: 
+     =IF(
+      OR(
+      [@Sales]<Lower_Bound,
+      [@Sales]>Upper_Bound
+      ),
+      "Outlier",
+      "Normal"
+      )
+
 1. Age in completed years
 Suppose the date of birth is in A2:
 For example:
 Date of Birth Formula Age
-15-Mar-1995 =DATEDIF(A2,TODAY(),"Y") 31
+15-Mar-1995 
+       =DATEDIF(A2,TODAY(),"Y") 31
 This returns the person's completed age in years.
 2. Age in years + months + days
+       =DATEDIF(A2,TODAY(),"Y")&" Years, "&DATEDIF(A2,TODAY(),"YM")&" Months, "&DATEDIF(A2,TODAY
 If you want something like 31 years, 6 months, 20 days:
 3. Age in total months
+       =DATEDIF(A2,TODAY(),"M")
 4. Age in total days
+      =DATEDIF(A2,TODAY(),"D")
 5. If you want age as of a specific date
-For example, calculate age as of 31-Dec-2026:
-For your Data Analyst dataset
-If your SalesData table has a Date_of_Birth column, add an Age column:
-=DATEDIF(A2,TODAY(),"Y")
-=DATEDIF(A2,TODAY(),"Y")&" Years, "&DATEDIF(A2,TODAY(),"YM")&" Months, "&DATEDIF(A2,TODAY
-=DATEDIF(A2,TODAY(),"M")
-=DATEDIF(A2,TODAY(),"D")
-=DATEDIF(A2,DATE(2026,12,31),"Y")
-excel
-excel
-excel
-excel
-excel
+      =DATEDIF(A2,DATE(2026,12,31),"Y")
 This is better than simply using:
-because the latter can give an incorrect age when the person's birthday hasn't occurred
-yet this year.
-=DATEDIF([@Date_of_Birth],TODAY(),"Y")
-=YEAR(TODAY())-YEAR(A2)
-ChatGPT can make mistakes. Check important info.
-excel
+     =DATEDIF([@Date_of_Birth],TODAY(),"Y")
+     =YEAR(TODAY())-YEAR(A2)
