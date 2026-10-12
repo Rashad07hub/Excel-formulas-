@@ -35,8 +35,6 @@ Part 2 — Counting and Conditional Analysis
     =COUNTIF(SalesData[Profit],">2000")
 15. Count customers aged above 40.
     =COUNTIF(SalesData[Age],">40")
-
-
 16. Count female customers.
     =COUNTIF(SalesData[Gender],"Female")
 17. Count completed orders.
@@ -199,29 +197,27 @@ Part 6 — IF / IFS / Logical Analysis
 
 Part 7 — Lookup Functions
    
-    =XLOOKUP([@Product_ID],ProductData[Product_ID],ProductData[Product_Name])
-
 61. Find Product Name from Product_ID using XLOOKUP.
+   =XLOOKUP([@Product_ID],ProductData[Product_ID],ProductData[Product_Name])
+62. Find Category.
    =XLOOKUP(
     [@Product_ID],
     ProductData[Product_ID],
     ProductData[Category]
     )
-62. Find Category.
+63. Find Unit Cost.
     =XLOOKUP(
      [@Product_ID],
      ProductData[Product_ID],
      ProductData[Unit_Cost]
      )
-63. Find Unit Cost.
+64. Use XLOOKUP with a default message.
     =XLOOKUP(
      [@Product_ID],
      ProductData[Product_ID],
      ProductData[Product_Name],
      "Not Found"
      )
-64. Use XLOOKUP with a default message.
-
 65. Use VLOOKUP to find Product Name.
     =VLOOKUP(
      [@Product_ID],
@@ -232,7 +228,6 @@ Part 7 — Lookup Functions
     =INDEX(
      ProductData[Category],
      MATCH([@Product_ID],ProductData[Product_ID],0)
-
 67. Find the salesperson for a particular Order_ID.
     =XLOOKUP(
      A2,
@@ -330,7 +325,7 @@ Part 10 — Advanced Data Analyst Questions
      )/SUM(SalesData[Profit])
 93. Calculate cumulative sales.
     =SUM($Q$2:Q2)
-Assuming data is sorted by date:
+    Assuming data is sorted by date:
     =SUM($S$2:S2)
 94. Calculate cumulative profit.
     =SUMIFS(
@@ -347,7 +342,7 @@ Assuming data is sorted by date:
 96. Calculate Month-to-Date sales.
      =IFERROR((B2-C2)/C2,0)
 97. Calculate YoY sales growth.
-Assume B2 contains current-year sales and C2 contains previous-year sales.
+    Assume B2 contains current-year sales and C2 contains previous-year sales.
 Or:
      =IFERROR(B2/C2-1,0)
 98. Calculate repeat-customer percentage.
@@ -373,7 +368,6 @@ Or:
       "Outlier",
       "Normal"
       )
-
 101. Age in completed years
      Suppose the date of birth is in A2:
      For example:
